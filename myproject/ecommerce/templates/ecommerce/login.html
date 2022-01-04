@@ -1,0 +1,92 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% block body_block %}
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+			<div class="col-first">
+				<h1>Login/Register</h1>
+				<nav class="d-flex align-items-center">
+					<a href="{% url 'ecommerce:index' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+					<a href="{% url 'ecommerce:registration' %}">Login/Register</a>
+				</nav>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End Banner Area -->
+<section class="login_box_area section_gap">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="login_box_img">
+					<img class="img-fluid" src="{% static 'ecommerce/img/login.jpg' %}" alt="">
+					<div class="hover">
+						<h4>New to our website?</h4>
+						<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+						<a class="primary-btn" href="{% url 'ecommerce:registration' %}">Create an Account</a>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-6">
+				<div class="login_form_inner">
+					<h3>Log in to enter</h3>
+					
+					<form class="row login_form" action="{% url 'ecommerce:login_1' %}" method="post">
+						{% csrf_token %}
+					
+						<div class="col-md-12 form-group">
+							<input type="text" class="form-control"  name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+						</div>
+						<div class="col-md-12 form-group">
+							<input type="password" class="form-control"  name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+						</div>
+						<div class="col-md-12 form-group">
+							<div class="creat_account">
+								<input type="checkbox" id="f-option2" name="selector">
+								<label for="f-option2">Keep me logged in</label>
+							</div>
+						</div>
+						{% if messages %}
+                        <div class="col-md-12 form-group">
+                            <div class="creat_account">
+                                {% for message in messages %}
+                                <label style="color:red;">{{ message }}</label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+						<div class="col-md-12 form-group">
+							<input type="submit" class='btn btn-primary' value="Login" >			
+							<a href="#">Forgot Password?</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</section>
+  <!-- <div class="container">
+    <div class="jumbotron">
+      <h1>Please Login</h1>
+
+        <form method="post" action="{% url 'ecommerce:login_1' %}">
+          {% csrf_token %}
+          
+          <label for="username">Username:</label>
+          <input type="text" name="username" placeholder="Username">
+ 
+          <label for="password">Password:</label>
+          <input type="password" name="password" placeholder="Password">
+
+          <input type="submit" name="" value="Login">
+
+        </form>
+
+    </div>
+  </div> -->
+{% endblock %}
