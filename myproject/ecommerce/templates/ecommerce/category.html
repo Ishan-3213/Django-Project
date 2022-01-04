@@ -1,0 +1,301 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% block head %}
+<title>Ecommerce</title>
+{% endblock %}
+{% block body_block %}
+	<!-- Start Header Area -->
+	<!-- End Header Area -->
+
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Shop Category page</h1>
+					<nav class="d-flex align-items-center">
+						<a href="{% url 'ecommerce:index' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
+						<a href="{% url 'ecommerce:category' %}">Fashon Category</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-xl-9 col-lg-8 col-md-7">
+				<!-- Start Filter Bar -->
+				
+				<!-- End Filter Bar -->
+				<!-- Start Best Seller -->
+			{% for product in item %}
+			{% if product.id > 0 %}
+				<section class="lattest-product-area pb-40 category-list">
+					<div class="row">
+						<!-- single product -->
+						<div class="col-lg-4 col-md-6">
+							<div class="single-product">
+								<img class="card-body" src="{{ product.prod_img.url }}" alt="">
+								<div class="product-details">
+									<h6><a href="{% url 'ecommerce:single_product' product.id %}">{{ product.prod_name }} (Stock: {{ product.stock }}, Quantity: {{ product.quantity }} ) </a><br></h6>
+									<div class="price">
+										<h6>₹{{ product.prod_price }}</h6>
+										<h6 class="l-through">210.00</h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="" class="social-info">
+											<span class="ti-bag"></span>
+											<button class="btn btn-primary" id="add_to_cart" onclick="updateuserorder('{{ product.id }}', 'add')">Add To Cart</button>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Wishlist</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-sync"></span>
+											<p class="hover-text">compare</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">view more</p>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- single product -->
+					</div>
+				</section>
+			{% endif %}
+			{% endfor %}	
+				<!-- End Best Seller -->
+				<!-- Start Filter Bar -->
+				
+				<!-- End Filter Bar -->
+			</div>
+		</div>
+	</div>
+
+	<!-- Start related-product Area -->
+	<section class="related-product-area section_gap">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-6 text-center">
+					<div class="section-title">
+						<h1>Deals of the Week</h1>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+							magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-9">
+					<div class="row">
+						{% for product in item %}
+						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+							<a href="{% url 'ecommerce:single_product' product.id %}">
+							<div class="single-related-product d-flex">
+								<img src="{% static 'ecommerce/img/r1.jpg' %}" alt="">
+								<div class="desc">
+									<a href="{% url 'ecommerce:single_product' product.id %}" class="title">{{ product.prod_name }}</a>
+									<div class="price">
+										<h6>{{ product.prod_price }}</h6>
+										<h6 class="l-through">210.00</h6>
+									</div>
+								</div>
+							</div></a>
+						</div>
+						{% endfor %}
+					
+
+	<!-- Modal Quick Product View -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="container relative">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="product-quick-view">
+					<div class="row align-items-center">
+						<div class="col-lg-6">
+							<div class="quick-view-carousel">
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+
+								</div>
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+
+								</div>
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="quick-view-content">
+								<div class="top">
+									<h3 class="head">Mill Oil 1000W Heater, White</h3>
+									<div class="price d-flex align-items-center"><span class="lnr lnr-tag"></span> <span class="ml-10">$149.99</span></div>
+									<div class="category">Category: <span>Household</span></div>
+									<div class="available">Availibility: <span>In Stock</span></div>
+								</div>
+								<div class="middle">
+									<p class="content">Mill Oil is an innovative oil filled radiator with the most modern technology. If you are
+										looking for something that can make your interior look awesome, and at the same time give you the pleasant
+										warm feeling during the winter.</p>
+									<a href="#" class="view-full">View full Details <span class="lnr lnr-arrow-right"></span></a>
+								</div>
+								<div class="bottom">
+									<div class="color-picker d-flex align-items-center">Color:
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+									</div>
+									<div class="quantity-container d-flex align-items-center mt-15">
+										Quantity:
+										<input type="text" class="quantity-amount ml-15" value="1" />
+										<div class="arrow-btn d-inline-flex flex-column">
+											<button class="increase arrow" type="button" title="Increase Quantity"><span class="lnr lnr-chevron-up"></span></button>
+											<button class="decrease arrow" type="button" title="Decrease Quantity"><span class="lnr lnr-chevron-down"></span></button>
+										</div>
+
+									</div>
+									<div class="d-flex mt-20">
+										<a href="#" class="view-btn color-2"><span>Add to Cart</span></a>
+										<a href="#" class="like-btn"><span class="lnr lnr-layers"></span></a>
+										<a href="#" class="like-btn"><span class="lnr lnr-heart"></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+{% endblock %}
+{% block scripts %}
+
+<script>
+	function updateuserorder(item_id, action)
+	{
+		{% if not request.user.is_authenticated %} 
+			window.location.replace("{% url 'ecommerce:login_1' %}");
+		{% else %}
+			// var updateBtns = document.getElementsByClassName('update-cart');
+	
+			// for (var i = 0; i < updateBtns.length; i++) {
+	
+			// 	updateBtns[i].addEventListener('click', function(){
+				// let button = $(element);
+				// let item_id = button.data("id");
+				// var action = this.dataset.action;
+	
+				console.log('item :', item_id)
+				let data ={'item_id':item_id,'action':'add'}
+	
+				$.ajax({
+					method: "POST",
+					headers: {'X-CSRFToken':csrftoken},
+					url: "{% url 'ecommerce:update_cart' %}",
+					data: data
+					, success: function(data){
+						alert("Successfully added ");
+					}, error: function(error){
+						alert("Error!...Something went wrong");
+					}
+					
+					})
+	
+				
+		{% endif %}
+	}
+	
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+	const csrftoken = getCookie('csrftoken');
+	
+	
+	
+	
+	
+	// var updateBtns = document.getElementsByClassName('update-cart');
+	
+	// for (var i = 0; i < updateBtns.length; i++) {
+	
+	// 	updateBtns[i].addEventListener('click', function(){
+	
+	// 	var item_id = this.dataset.products;
+	// 	var action = this.dataset.action;
+	// 	console.log('item:', item_id, 'Action:', action);
+	
+	// 	updateuserorder(item_id,action)
+	// 	console.log('USER:', user)
+	
+	// 	if (user == 'AnonymousUser'){
+	// 		addCookieItem(item_id, action)
+	// 	}else{
+	// 		updateuserorder(item_id, action)
+	// 	}
+	// 	})
+	// }
+	
+	
+	// function updateuserorder(item_id,action){
+		
+	//     console.log("user is sending data");
+	//     var url ="{% url 'ecommerce:update_cart' %}";
+	//     fetch(url,{
+	//         method:"POST",
+	//         headers:{'Content-Type':'application/json',
+	// 		'X-CSRFToken':csrftoken},
+	//         body:JSON.stringify({'item_id':item_id,'action':action}),
+	//     })
+	//     .then((response)=>{
+	//         return response.json()
+	//     })
+	//     .then((data)=>{
+	//         console.log('data:', data);
+	//     })
+	// }
+	
+	// function getCookie(name) {
+	//     let cookieValue = null;
+	//     if (document.cookie && document.cookie !== '') {
+	//         const cookies = document.cookie.split(';');
+	//         for (let i = 0; i < cookies.length; i++) {
+	//             const cookie = cookies[i].trim();
+	//             // Does this cookie string begin with the name we want?
+	//             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+	//                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	//                 break;
+	//             }
+	//         }
+	//     }
+	//     return cookieValue;
+	// }
+	// const csrftoken = getCookie('csrftoken');
+	
+	</script>
+	{% endblock %}
